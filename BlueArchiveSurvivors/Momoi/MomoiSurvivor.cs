@@ -178,10 +178,10 @@ namespace BAMod.Momoi
 
                 baseRechargeInterval = 5,
 
-                rechargeStock = 60,
+                rechargeStock = 30,
                 requiredStock = 1,
                 stockToConsume = 1,
-                baseMaxStock = 60,
+                baseMaxStock = 30,
 
                 resetCooldownTimerOnUse = true,
                 fullRestockOnAssign = true,

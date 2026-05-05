@@ -33,7 +33,7 @@ namespace BAMod.Mutsuki.SkillStates.Utility
                         radius = 40,
                         procCoefficient = 0f,
                     };
-                    flameBlast.AddModdedDamageType(MutsukiCustomDamageTypes.MutsukiDoubleIgnite);
+
                     flameBlast.Fire();
                     flamed = true;
                 }

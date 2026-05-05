@@ -2,6 +2,6 @@
 {
     public static class MutsukiStaticValues
     {
-        public const float burstDamage = 0.1f;
+        public const float LMGDamage = 1f;
     }
 }

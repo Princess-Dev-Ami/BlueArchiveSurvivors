@@ -44,21 +44,6 @@ namespace BAMod.Saori.Content
         #region effects
         private static void CreateEffects()
         {
-            mainMarkBuffEffect = PrefabAPI.InstantiateClone(_assetBundle.LoadAsset<GameObject>("UIMainMark"), "Main Mark Buff");
-            var controller = mainMarkBuffEffect.AddComponent<DisplayAboveModelTransform>();
-            controller.parentBuff = SaoriBuffs.SaoriPrimaryMarkBuff;
-            controller.enabled = false;
-
-            secondaryMarkBuffEffect = PrefabAPI.InstantiateClone(_assetBundle.LoadAsset<GameObject>("UISecondaryMark"), "Secondary Mark Buff");
-            controller = secondaryMarkBuffEffect.AddComponent<DisplayAboveModelTransform>();
-            controller.parentBuff = SaoriBuffs.SaoriMarkBuff;
-
-            markTargetEffect = PrefabAPI.InstantiateClone(_assetBundle.LoadAsset<GameObject>("UIMainMarkSkill"), "Main Mark Skill");
-            controller = markTargetEffect.AddComponent<DisplayAboveModelTransform>();
-
-            markSecondaryTargetEffect = PrefabAPI.InstantiateClone(_assetBundle.LoadAsset<GameObject>("UISecondaryMarkSkill"), "Secondary Mark Skill");
-            controller = markSecondaryTargetEffect.AddComponent<DisplayAboveModelTransform>();
-
         }
         #endregion effects
 

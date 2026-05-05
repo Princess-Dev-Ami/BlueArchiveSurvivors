@@ -44,12 +44,13 @@ namespace BAMod.Arisu.Content
 
             #region Passive
             Language.Add(prefix + "SPECIAL_ULTIMATE_PRIMARY_NAME", "Sword of Light: Hypernova");
-            Language.Add(prefix + "SPECIAL_ULTIMATE_PRIMARY_DESCRIPTION", $"Rooting. Armouring. Fire a slowly ramping beam attack that deals <style=cIsDamage>{100f * ArisuStaticValues.ultBeamDamage}% -- {100f * ArisuStaticValues.maxUltBeamDamage}%</style> damage per second. Once out of ammo start Overheating- dealing temporary soul damage to self.");
-            #endregion
+            Language.Add(prefix + "SPECIAL_ULTIMATE_PRIMARY_DESCRIPTION", $"Slowing. Armouring. Fire a beam that deals {ArisuStaticValues.hyperBeamDamage * 100f}% of TOTAL HEALTH (Capped at 1000% base damage, and 2000% on crit) per second while applying an immense amount of overheat. Once out of fuel start overheating further..");
 
+
+            #endregion
             #region Primary
             Language.Add(prefix + "PRIMARY_GUN_NAME", "Sword of Light: Supernova");
-            Language.Add(prefix + "PRIMARY_GUN_DESCRIPTION", $"Rooting. Armouring.  Fire a slowly ramping beam attack that deals <style=cIsDamage>{100f * ArisuStaticValues.baseBeamDamage}% -- {100f * ArisuStaticValues.maxBaseBeamDamage}%</style> damage per second. Once out of ammo start Overheating- dealing temporary soul damage to self.");
+            Language.Add(prefix + "PRIMARY_GUN_DESCRIPTION", $"Slowing. Armouring. Overkill Chaining. Charge up an energy blast for <style=cIsDamage>{100f * ArisuStaticValues.baseBeamDamage}% -- {100f * ArisuStaticValues.maxBaseBeamDamage}%</style> damage. Once out of ammo start Overheating- dealing temporary soul damage to self and rooting.");
             #endregion
          
             #region Secondary
@@ -64,7 +65,7 @@ namespace BAMod.Arisu.Content
 
             #region Special
             Language.Add(prefix + "SPECIAL_ULTIMATE_NAME", "Awaken, Super Nova!");
-            Language.Add(prefix + "SPECIAL_ULTIMATE_DESCRIPTION", $"Rooting. Shielding. Gain 25% of TOTAL HEALTH as shield and remain rooted for 3s while charging, after finished change her primary gun into Sword of Light: Hypernova");
+            Language.Add(prefix + "SPECIAL_ULTIMATE_DESCRIPTION", $"Switch gun between Sword of Light: Hypernova and Sword of Light: Supernova");
             #endregion
 
             #region Achievements

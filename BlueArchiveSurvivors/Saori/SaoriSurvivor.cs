@@ -176,18 +176,18 @@ namespace BAMod.Saori
                 activationStateMachineName = "Gun",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
-                baseRechargeInterval = float.MaxValue,
+                baseRechargeInterval = 7,
 
-                rechargeStock = 0,
+                rechargeStock = 5,
                 requiredStock = 1,
                 stockToConsume = 1,
                 baseMaxStock = 5,
 
-                resetCooldownTimerOnUse = false,
+                resetCooldownTimerOnUse = true,
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
                 mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
+                beginSkillCooldownOnSkillEnd = true,
 
                 isCombatSkill = false,
                 canceledFromSprinting = false,
@@ -195,38 +195,6 @@ namespace BAMod.Saori
                 forceSprintDuringState = false,
 
             });
-
-            BurstRifleReload = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "Burst Rifle Reload",
-                skillNameToken = SAORI_PREFIX + "PRIMARY_RELOAD_NAME",
-                skillDescriptionToken = SAORI_PREFIX + "PRIMARY_RELOAD_DESCRIPTION",
-                keywordTokens = ["KEYWORD_AGILE"],
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(BurstRifleReload)),
-                activationStateMachineName = "Gun",
-                interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseRechargeInterval = float.MaxValue,
-
-                rechargeStock = 0,
-                requiredStock = 0,
-                stockToConsume = 0,
-                baseMaxStock = 0,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = true,
-                mustKeyPress = true,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = false,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = false,
-                forceSprintDuringState = false,
-            });
-
             Skills.AddPrimarySkills(bodyPrefab, BurstRifle);
         }
 
@@ -242,20 +210,20 @@ namespace BAMod.Saori
                 keywordTokens = ["KEYWORD_AGILE"],
                 skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
 
-                activationState = new EntityStates.SerializableEntityStateType(typeof(ToKill)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(HERound)),
                 activationStateMachineName = "Scope",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
-                baseRechargeInterval = 30f,
+                baseRechargeInterval = 10f,
 
-                rechargeStock = 1,
-                requiredStock = 1,
+                rechargeStock = 0,
+                requiredStock = 0,
                 stockToConsume = 0,
-                baseMaxStock = 2,
+                baseMaxStock = 0,
 
-                resetCooldownTimerOnUse = false,
+                resetCooldownTimerOnUse = true,
                 fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
+                dontAllowPastMaxStocks = true,
                 mustKeyPress = true,
                 beginSkillCooldownOnSkillEnd = true,
 
@@ -264,37 +232,6 @@ namespace BAMod.Saori
                 cancelSprintingOnActivation = false,
                 forceSprintDuringState = false,
 
-            });
-
-            ScopePrimaryOverride = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "Scope Override",
-                skillNameToken = SAORI_PREFIX + "SECONDARY_RELOAD_NAME",
-                skillDescriptionToken = SAORI_PREFIX + "SECONDARY_RELOAD_DESCRIPTION",
-                keywordTokens = ["KEYWORD_AGILE"],
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(ToKillPrimaryOverride)),
-                activationStateMachineName = "Gun",
-                interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseRechargeInterval = float.MaxValue,
-
-                rechargeStock = 0,
-                requiredStock = 1,
-                stockToConsume = 1,
-                baseMaxStock = 0,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
-                mustKeyPress = true,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = false,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = false,
-                forceSprintDuringState = false,
             });
             Skills.AddSecondarySkills(bodyPrefab, Scope);
         }
@@ -353,7 +290,7 @@ namespace BAMod.Saori
                 activationStateMachineName = "Ult",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
-                baseRechargeInterval = 120,
+                baseRechargeInterval = 20,
 
                 rechargeStock = 1,
                 requiredStock = 1,

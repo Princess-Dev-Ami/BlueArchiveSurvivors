@@ -57,21 +57,8 @@ namespace BAMod.Arisu.SkillStates.Secondary
                 };
                 ProjectileManager.instance.FireProjectile(projectile);
                 skillLocator.primary.stock = 0;
-                skillLocator.primary.cooldownOverride = 20;
                 ejected = true;
-                if (ArisuMain.ultimateGun)
-                {
-                    skillLocator.primary.UnsetSkillOverride(this.gameObject, ArisuSurvivor.UltBeam, GenericSkill.SkillOverridePriority.Default);
-                    ArisuMain.ultimateGun = false;
-                }
             }
-            if (ejected && fixedAge > duration)
-            {
-                skillLocator.primary.cooldownOverride = 0;
-                outer.SetNextStateToMain();
-                return;
-            }
-
         }
 
         public override void OnExit()

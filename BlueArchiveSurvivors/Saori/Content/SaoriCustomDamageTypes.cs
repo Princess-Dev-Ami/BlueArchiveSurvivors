@@ -5,8 +5,9 @@ using System.Text;
 
 namespace BAMod.Saori.Content
 {
-    internal class SaoriCustomDamageTypes
+    internal static class SaoriCustomDamageTypes
     {
-
+        public static DamageAPI.ModdedDamageType SaoriExplodeOnHit = DamageAPI.ReserveDamageType();
+        public static DamageAPI.ModdedDamageType SaoriBurstBasic = DamageAPI.ReserveDamageType();
     }
 }

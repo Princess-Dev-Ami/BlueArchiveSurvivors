@@ -52,7 +52,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Arisu\Components\" />
+	  <Reference Include="ExtraSkillSlots">
+	    <HintPath>..\..\AppData\Roaming\com.kesomannen.gale\riskofrain2\profiles\tsurugiit\BepInEx\plugins\KingEnderBrine-ExtraSkillSlots\ExtraSkillSlots\ExtraSkillSlots.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
     
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

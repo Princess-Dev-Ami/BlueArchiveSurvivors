@@ -4,7 +4,7 @@ using RoR2;
 namespace BAMod.Mutsuki.Achievements
 {
     //automatically creates language tokens "ACHIEVMENT_{identifier.ToUpper()}_NAME" and "ACHIEVMENT_{identifier.ToUpper()}_DESCRIPTION"
-    [RegisterAchievement(identifier, unlockableIdentifier, null, 10, null)]
+    //[RegisterAchievement(identifier, unlockableIdentifier, null, 10, null)]
     public class MutsukiMasteryAchievements : BaseMasteryAchievement
     {
         public const string identifier = MutsukiSurvivor.Mutsuki_PREFIX + "masteryAchievement";

@@ -2,6 +2,7 @@
 using BAMod.Arisu.SkillStates.BaseStates;
 using BAMod.Mashiro.Content;
 using EntityStates;
+using R2API;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace BAMod.Arisu.SkillStates.Special
                     var aimRay = GetAimRay();
                     var beamAttack = new BulletAttack()
                     {
-                        damage = (damageStat * (Mathf.Lerp(ArisuStaticValues.ultBeamDamage, ArisuStaticValues.maxUltBeamDamage, ArisuMain.beamTime / 10f)) / 10f) / attackSpeedStat,
+                        damage = ArisuStaticValues.hyperBeamDamage,
                         damageType = DamageType.Generic,
                         damageColorIndex = DamageColorIndex.Electrocution,
                         maxDistance = 300f,
@@ -49,16 +50,18 @@ namespace BAMod.Arisu.SkillStates.Special
                         procCoefficient = 1.0f,
                         owner = this.gameObject
                     };
+                    beamAttack.AddModdedDamageType(ArisuCustomDamageTypes.ArisuHyperBeam);
                     beamAttack.Fire();
                     fired = true;
-                    ArisuMain.beamTime += 0.1f;
+                    characterBody.AddBuff(ArisuBuffs.ArisuOverheatStack);
                 }
 
                 if (fixedAge > duration)
                 {
                     if (skillLocator.primary.stock <= 0)
                     {
-                        skillLocator.primary.SetSkillOverride(this.gameObject, ArisuSurvivor.UltBeamOverheat, GenericSkill.SkillOverridePriority.Default);
+                        ArisuMain.overheat = true;
+                        ArisuMain.RequestOverride(ArisuCharacterMain.ArisuOverrideRequest.OverheatSwitch);
                     }
                     outer.SetNextStateToMain();
                     return;
@@ -74,7 +77,6 @@ namespace BAMod.Arisu.SkillStates.Special
 
         public override void OnExit()
         {
-
             base.OnExit();
         }
 

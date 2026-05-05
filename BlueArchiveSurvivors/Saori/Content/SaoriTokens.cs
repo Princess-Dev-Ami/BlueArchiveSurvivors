@@ -51,8 +51,8 @@ namespace BAMod.Saori.Content
             #endregion
 
             #region Secondary
-            Language.Add(prefix + "SECONDARY_GUN_NAME", "Scope In");
-            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", $"Turns primary into 'To Kill Them', which marks targets, gaurinteeing critical strike damage and drone targeting priority");
+            Language.Add(prefix + "SECONDARY_GUN_NAME", "Explosive Potential");
+            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", $"Repeating. changes her assault rifle to HE rounds, causing them to hit for 4x{100f*SaoriStaticValues.heRound} damage directly, and again in an area around the hit bullet");
             #endregion
 
             #region Utility
@@ -62,7 +62,7 @@ namespace BAMod.Saori.Content
 
             #region Special
             Language.Add(prefix + "SPECIAL_ULTIMATE_NAME", "Et Omnia Vnitas！  ...and all is vanity!");
-            Language.Add(prefix + "SPECIAL_ULTIMATE_DESCRIPTION", $"Rooting. Shielding. Implant and Gain of TOTAL HEALTH as shield and remain rooted for 3s while charging, after finished allies now have 500% additional crit damage for 20s");
+            Language.Add(prefix + "SPECIAL_ULTIMATE_DESCRIPTION", $"");
             #endregion
 
             #region Achievements

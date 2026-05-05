@@ -47,7 +47,7 @@ namespace BAMod.Mutsuki.Content
 
             #region Primary
             Language.Add(prefix + "PRIMARY_GUN_NAME", "Unique Idea");
-            Language.Add(prefix + "PRIMARY_GUN_DESCRIPTION", $"Fire a round at rapid speed for <style=cIsDamage>{100f * MutsukiStaticValues.burstDamage}%</style> damage with 1.0 Proc. This rifle ignites on hit.");
+            Language.Add(prefix + "PRIMARY_GUN_DESCRIPTION", $"Fire a round at rapid speed for <style=cIsDamage>{100f * MutsukiStaticValues.LMGDamage}%</style> damage with 1.0 Proc. This rifle ignites on hit.");
             #endregion
 
             #region Secondary

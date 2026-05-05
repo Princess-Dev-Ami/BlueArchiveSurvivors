@@ -1,19 +1,21 @@
-﻿using BAMod.Modules;
-using BAMod.Modules.Characters;
+﻿using BAMod.Arisu.Content;
+using BAMod.Arisu.SkillStates.BaseStates;
+using BAMod.Arisu.SkillStates.EXSkills;
 using BAMod.Arisu.SkillStates.Primary;
 using BAMod.Arisu.SkillStates.Secondary;
 using BAMod.Arisu.SkillStates.Special;
+using BAMod.Arisu.SkillStates.SpecialLock;
 using BAMod.Arisu.SkillStates.Utility;
+using BAMod.Mashiro.Content;
+using BAMod.Mashiro.SkillStates.BaseStates;
+using BAMod.Modules;
+using BAMod.Modules.Characters;
+using ExtraSkillSlots;
+using R2API;
 using RoR2;
 using RoR2.Skills;
 using System.Collections.Generic;
 using UnityEngine;
-using BAMod.Mashiro.Content;
-using BAMod.Arisu.SkillStates.BaseStates;
-using BAMod.Arisu.SkillStates.SpecialLock;
-using R2API;
-using BAMod.Arisu.Content;
-using BAMod.Mashiro.SkillStates.BaseStates;
 namespace BAMod.Arisu
 {
     public class ArisuSurvivor : SurvivorBase<ArisuSurvivor>
@@ -77,6 +79,10 @@ namespace BAMod.Arisu
         public static SkillDef EmergencyCooling;
 
         public static SkillDef Lock;
+        public static SkillDef Railgun;
+        public static SkillDef Cloak;
+        public static SkillDef CoolantTank;
+        public static SkillDef OverClock;
         public override void Initialize()
         {
             base.Initialize();;
@@ -134,12 +140,23 @@ namespace BAMod.Arisu
             //Ult EntityStateMachine
             Prefabs.AddEntityStateMachine(bodyPrefab, "Ult");
 
+            //EX EntityStateMachine
+            Prefabs.AddEntityStateMachine(bodyPrefab, "Ex1");
+            Prefabs.AddEntityStateMachine(bodyPrefab, "Ex2");
+            Prefabs.AddEntityStateMachine(bodyPrefab, "Ex3");
+            Prefabs.AddEntityStateMachine(bodyPrefab, "Ex4");
+
+
             prefabCharacterBody.vehicleIdleStateMachine = new EntityStateMachine[]
             {
                 EntityStateMachine.FindByCustomName(bodyPrefab, "Gun"),
                 EntityStateMachine.FindByCustomName(bodyPrefab, "Scope"),
                 EntityStateMachine.FindByCustomName(bodyPrefab, "Movement"),
-                EntityStateMachine.FindByCustomName(bodyPrefab, "Ult")
+                EntityStateMachine.FindByCustomName(bodyPrefab, "Ult"),
+                EntityStateMachine.FindByCustomName(bodyPrefab, "Ex1"),
+                EntityStateMachine.FindByCustomName(bodyPrefab, "Ex2"),
+                EntityStateMachine.FindByCustomName(bodyPrefab, "Ex3"),
+                EntityStateMachine.FindByCustomName(bodyPrefab, "Ex4")
             };
         }
 
@@ -155,7 +172,7 @@ namespace BAMod.Arisu
             AddSpecialSkills();
             AddLockSkill();
             AddUltPrimary();
-
+            AddEXSkills();
         }
         //if this is your first look at skilldef creation, take a look at Secondary first
         private void AddPrimarySkills()
@@ -170,9 +187,9 @@ namespace BAMod.Arisu
                 skillNameToken = Arisu_PREFIX + "PRIMARY_GUN_NAME",
                 skillDescriptionToken = Arisu_PREFIX + "PRIMARY_GUN_DESCRIPTION",
                 keywordTokens = ["KEYWORD_AGILE"],
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("ARSupernovaFR"),
 
-                activationState = new EntityStates.SerializableEntityStateType(typeof(BeamAttack)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(RailgunAttackCharge)),
                 activationStateMachineName = "Gun",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
@@ -184,7 +201,7 @@ namespace BAMod.Arisu
                 baseMaxStock = 100,
 
                 resetCooldownTimerOnUse = true,
-                fullRestockOnAssign = false,
+                fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
                 mustKeyPress = false,
                 beginSkillCooldownOnSkillEnd = false,
@@ -202,9 +219,40 @@ namespace BAMod.Arisu
                 skillNameToken = Arisu_PREFIX + "PRIMARY_RELOAD_NAME",
                 skillDescriptionToken = Arisu_PREFIX + "PRIMARY_RELOAD_DESCRIPTION",
                 keywordTokens = ["KEYWORD_AGILE"],
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("ARSupernovaFR2"),
 
-                activationState = new EntityStates.SerializableEntityStateType(typeof(BeamAttackOverheat)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(RailgunAttackChargeOverheat)),
+                activationStateMachineName = "Gun",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseRechargeInterval = float.MaxValue,
+
+                rechargeStock = 0,
+                requiredStock = 0,
+                stockToConsume = 0,
+                baseMaxStock = 0,
+
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = true,
+                mustKeyPress = false,
+                beginSkillCooldownOnSkillEnd = false,
+
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+            });
+
+            Railgun = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "Flame Burst Rifle Reload",
+                skillNameToken = Arisu_PREFIX + "PRIMARY_RELOAD_NAME",
+                skillDescriptionToken = Arisu_PREFIX + "PRIMARY_RELOAD_DESCRIPTION",
+                keywordTokens = ["KEYWORD_AGILE"],
+                skillIcon = assetBundle.LoadAsset<Sprite>("ARSupernovaFR3"),
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(Railgun)),
                 activationStateMachineName = "Gun",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
@@ -240,7 +288,7 @@ namespace BAMod.Arisu
                 skillNameToken = Arisu_PREFIX + "SECONDARY_GUN_NAME",
                 skillDescriptionToken = Arisu_PREFIX + "SECONDARY_GUN_DESCRIPTION",
                 keywordTokens = ["KEYWORD_AGILE"],
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("ARCoreEjection"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(CoreEject)),
                 activationStateMachineName = "Scope",
@@ -279,7 +327,7 @@ namespace BAMod.Arisu
                 skillNameToken = Arisu_PREFIX + "UTILITY_STUN_NAME",
                 skillDescriptionToken = Arisu_PREFIX + "UTILITY_STUN_DESCRIPTION",
                 keywordTokens = ["KEYWORD_AGILE"],
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("AREmergencyCoolingSolution"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EmergencyCooling)),
                 activationStateMachineName = "Movement",
@@ -317,13 +365,13 @@ namespace BAMod.Arisu
                 skillNameToken = Arisu_PREFIX + "SPECIAL_ULTIMATE_NAME",
                 skillDescriptionToken = Arisu_PREFIX + "SPECIAL_ULTIMATE_DESCRIPTION",
                 keywordTokens = ["KEYWORD_AGILE"],
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("ARAwakenSuperNova"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(ArisuUlt)),
-                activationStateMachineName = "Ult",
+                activationStateMachineName = "Gun",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
-                baseRechargeInterval = 120,
+                baseRechargeInterval = 30,
 
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -396,18 +444,18 @@ namespace BAMod.Arisu
                 activationStateMachineName = "Gun",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
-                baseRechargeInterval = float.MaxValue,
+                baseRechargeInterval = 10,
 
-                rechargeStock = 0,
+                rechargeStock = 100,
                 requiredStock = 1,
-                stockToConsume = 1,
+                stockToConsume = 2,
                 baseMaxStock = 100,
 
-                resetCooldownTimerOnUse = false,
+                resetCooldownTimerOnUse = true,
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
                 mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
+                beginSkillCooldownOnSkillEnd = true,
 
                 isCombatSkill = true,
                 canceledFromSprinting = false,
@@ -451,6 +499,119 @@ namespace BAMod.Arisu
             Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, UltBeam);
         }
 
+        private void AddEXSkills()
+        {
+            ExtraSkillLocator exSkillLoc = bodyPrefab.AddComponent<ExtraSkillLocator>();
+
+            var exSkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            (exSkillFamily as ScriptableObject).name = bodyPrefab.name + "EXSkillFamily";
+            exSkillFamily.variants = new SkillFamily.Variant[0];
+            Modules.Content.AddSkillFamily(exSkillFamily);
+
+            Cloak = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "EX_Cloak",
+                skillNameToken = Arisu_PREFIX + "ULT_PRIMARY_NAME",
+                skillDescriptionToken = Arisu_PREFIX + "ULT_PRIMARY_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_AGILE" },
+                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(CloakEngine)),
+                activationStateMachineName = "Ex1",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                baseRechargeInterval = float.MaxValue,
+                rechargeStock = 0,
+                requiredStock = 0,
+                stockToConsume = 0,
+                baseMaxStock = 0,
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = true,
+                mustKeyPress = true,
+                beginSkillCooldownOnSkillEnd = false,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+            });
+
+            CoolantTank = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "EX_CoolantTank",
+                skillNameToken = Arisu_PREFIX + "ULT_PRIMARY_NAME",
+                skillDescriptionToken = Arisu_PREFIX + "ULT_PRIMARY_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_AGILE" },
+                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(CoolantTank)),
+                activationStateMachineName = "Ex2",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                baseRechargeInterval = float.MaxValue,
+                rechargeStock = 0,
+                requiredStock = 0,
+                stockToConsume = 0,
+                baseMaxStock = 0,
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = true,
+                mustKeyPress = true,
+                beginSkillCooldownOnSkillEnd = false,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+            });
+
+            OverClock = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "EX_Overclock",
+                skillNameToken = Arisu_PREFIX + "ULT_PRIMARY_NAME",
+                skillDescriptionToken = Arisu_PREFIX + "ULT_PRIMARY_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_AGILE" },
+                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(OverClock)),
+                activationStateMachineName = "Ex3",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                baseRechargeInterval = float.MaxValue,
+                rechargeStock = 0,
+                requiredStock = 0,
+                stockToConsume = 0,
+                baseMaxStock = 0,
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = true,
+                mustKeyPress = true,
+                beginSkillCooldownOnSkillEnd = false,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+            });
+
+            Skills.AddSkillToFamily(exSkillFamily, Cloak);
+            Skills.AddSkillToFamily(exSkillFamily, CoolantTank);
+            Skills.AddSkillsToFamily(exSkillFamily, OverClock);
+
+
+            var exSkillA = bodyPrefab.AddComponent<GenericSkill>();
+            exSkillA._skillFamily = exSkillFamily;
+            exSkillA.hideInCharacterSelect = true;
+
+            var exSkillB = bodyPrefab.AddComponent<GenericSkill>();
+            exSkillB._skillFamily = exSkillFamily;
+            exSkillB.hideInCharacterSelect = true;
+
+            var exSkillC = bodyPrefab.AddComponent<GenericSkill>();
+            exSkillC._skillFamily = exSkillFamily;
+            exSkillC.hideInCharacterSelect = true;
+
+            var exSkillD = bodyPrefab.AddComponent<GenericSkill>();
+            exSkillD._skillFamily = exSkillFamily;
+            exSkillD.hideInCharacterSelect = true;
+
+            exSkillLoc.extraFirst = exSkillA;
+            exSkillLoc.extraSecond = exSkillB;
+            exSkillLoc.extraThird = exSkillC;
+            //exSkillLoc.extraFourth = exSkillD;
+        }
 
         #endregion skills
 

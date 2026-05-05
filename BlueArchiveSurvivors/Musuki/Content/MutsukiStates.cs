@@ -10,8 +10,8 @@ namespace BAMod.Mutsuki.Content
         public static void Init()
         {
             Modules.Content.AddEntityState(typeof(MutsukiCharacterMain));
-            Modules.Content.AddEntityState(typeof(FlameGrenade));
-            Modules.Content.AddEntityState(typeof(FlameRifle));
+            Modules.Content.AddEntityState(typeof(Landmine));
+            Modules.Content.AddEntityState(typeof(LMG));
             Modules.Content.AddEntityState(typeof(MutsukiUlt));
         }
     }

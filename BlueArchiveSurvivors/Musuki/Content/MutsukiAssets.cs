@@ -5,13 +5,15 @@ using R2API;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.Networking.Types;
 
 namespace BAMod.Mutsuki.Content
 {
     public static class MutsukiAssets
     {
         
-        public static GameObject bombExplosionEffect;
+        public static GameObject SerenadeTargetPrefab;
 
         // networked hit sounds
         public static NetworkSoundEventDef swordHitSoundEvent;
@@ -52,9 +54,13 @@ namespace BAMod.Mutsuki.Content
         #region projectiles
         private static void CreateProjectiles()
         {
-            flameGrenadePrefab = Asset.CloneProjectilePrefab("CommandoGrenadeProjectile", "MutsukiFlameGrenade");
-            var damage = flameGrenadePrefab.GetComponent<ProjectileDamage>();
-            damage.damageType.AddModdedDamageType(MutsukiCustomDamageTypes.MutsukiFlameGrenade);
+            SerenadeTargetPrefab = PrefabAPI.InstantiateClone(_assetBundle.LoadAsset<GameObject>("SerenadeBlank"), "Serenade Target");
+            SerenadeTargetPrefab.AddComponent<CharacterBody>();
+            SerenadeTargetPrefab.AddComponent<HurtBox>();
+            SerenadeTargetPrefab.AddComponent<Collider>().isTrigger = true;
+            SerenadeTargetPrefab.AddComponent<HealthComponent>();
+            SerenadeTargetPrefab.AddComponent<NetworkIdentity>();
+            SerenadeTargetPrefab.AddComponent<EffectiveImmortal>();
         }
 
         #endregion projectiles

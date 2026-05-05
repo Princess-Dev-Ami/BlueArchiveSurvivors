@@ -8,6 +8,8 @@ using UnityEngine;
 using EntityStates;
 using BAMod.Saori.SkillStates.BaseStates;
 using BAMod.Saori.Content;
+using BAMod.Saori.SkillStates.Secondary;
+using BAMod.Mashiro.SkillStates.BaseStates;
 
 namespace BAMod.Saori.SkillStates.Primary
 {
@@ -22,9 +24,11 @@ namespace BAMod.Saori.SkillStates.Primary
         public DamageTypeCombo damageType = DamageType.Generic;
         private float tick;
         private int FiredAmount;
+        private bool HERoundMag;
         public override void OnEnter()
         {
             base.OnEnter();
+            HERoundMag = SaoriMain.HERound;
         }
 
         public override void FixedUpdate()
@@ -33,7 +37,7 @@ namespace BAMod.Saori.SkillStates.Primary
             if (isAuthority)
             {
                 tick += Time.deltaTime;
-                if (tick > 0.11f && IsKeyDownAuthority() && FiredAmount <= 6)
+                if (tick > 0.11f && IsKeyDownAuthority() && FiredAmount <= 6 && !HERoundMag)
                 {
                     var aimRay = GetAimRay();
                     var pelletVectors = ScatterVectors(aimRay.direction, 1, 3f, 1f);
@@ -62,17 +66,48 @@ namespace BAMod.Saori.SkillStates.Primary
                             damageType = damageType,
                             radius = 1
                         };
+                        bullet.AddModdedDamageType(SaoriCustomDamageTypes.SaoriBurstBasic);
                         bullet.Fire();
                         tick -= 0.11f;
                         FiredAmount += 1;
                     }
                 }
-                if (FiredAmount >= 3 && fixedAge > duration)
+                else if (tick > 0.11f && IsKeyDownAuthority() && FiredAmount <= 4 && HERoundMag)
                 {
-                    outer.SetNextStateToMain();
-                    return;
+                    var aimRay = GetAimRay();
+                    var pelletVectors = ScatterVectors(aimRay.direction, 1, 3f, 1f);
+                    foreach (var p in pelletVectors)
+                    {
+                        BulletAttack bullet = new BulletAttack
+                        {
+                            owner = base.gameObject,
+                            weapon = base.gameObject,
+                            origin = aimRay.origin,
+                            aimVector = p + aimRay.direction * 2,
+                            minSpread = 0f,
+                            maxSpread = base.characterBody.spreadBloomAngle,
+                            bulletCount = 1U,
+                            procCoefficient = 1f,
+                            damage = base.characterBody.damage * SaoriStaticValues.heRound,
+                            force = 3,
+                            falloffModel = BulletAttack.FalloffModel.DefaultBullet,
+                            tracerEffectPrefab = this.tracerEffectPrefab,
+                            hitEffectPrefab = this.hitEffectPrefab,
+                            isCrit = base.RollCrit(),
+                            HitEffectNormal = false,
+                            stopperMask = BulletAttack.defaultStopperMask,
+                            smartCollision = true,
+                            maxDistance = 300f,
+                            damageType = damageType,
+                            radius = 1
+                        };
+                        bullet.AddModdedDamageType(SaoriCustomDamageTypes.SaoriExplodeOnHit);
+                        bullet.Fire();
+                        tick -= 0.11f;
+                        FiredAmount += 1;
+                    }
                 }
-                else if (FiredAmount <= 3 && !IsKeyDownAuthority())
+                if (fixedAge > duration || !IsKeyDownAuthority())
                 {
                     outer.SetNextStateToMain();
                     return;
@@ -83,10 +118,6 @@ namespace BAMod.Saori.SkillStates.Primary
         public override void OnExit()
         {
             base.OnExit();
-            if (stock <= 0)
-            {
-                skillLocator.primary.SetSkillOverride(this.gameObject, SaoriSurvivor.BurstRifleReload, GenericSkill.SkillOverridePriority.Default);
-            }
         }
 
         public static List<Vector3> ScatterVectors(

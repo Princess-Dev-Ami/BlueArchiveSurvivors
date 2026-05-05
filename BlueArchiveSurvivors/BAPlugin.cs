@@ -11,6 +11,9 @@ using BAMod.GlobalContent.Scripts;
 using RoR2.Networking;
 using BAMod.Saori;
 using BAMod.Mutsuki;
+using BAMod.Momoi;
+using BAMod.GlobalContent.Buffs;
+using ExtraSkillSlots;
 
 [module: UnverifiableCode]
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -27,6 +30,7 @@ namespace BAMod
     [BepInDependency(PrefabAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(DamageAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(RecalculateStatsAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(ExtraSkillSlotsPlugin.GUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     public class BAPlugin : BaseUnityPlugin
@@ -52,12 +56,16 @@ namespace BAMod
             // used when you want to properly set up language folders
             Modules.Language.Init();
 
+            GlobalBuffs.init();
+            GlobalBuffHooks.Init();
+
             // character initializatio
             new ArisuSurvivor().Initialize();
             new MashiroSurvivor().Initialize();
             new TsurugiSurvivor().Initialize();
             new SaoriSurvivor().Initialize();
-            new MutsukiSurvivor().Initialize();
+            //new MutsukiSurvivor().Initialize();
+            new MomoiSurvivor().Initialize();
 
             // make a content pack and add it. this has to be last
             new Modules.ContentPacks().Initialize();

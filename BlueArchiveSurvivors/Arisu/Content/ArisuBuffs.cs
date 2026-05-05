@@ -11,6 +11,8 @@ namespace BAMod.Arisu.Content
         public static BuffDef Withstand;
         public static BuffDef ArisuUltShield;
         public static BuffDef ArisuOverheatStack;
+        public static BuffDef coolantActive;
+        public static BuffDef hotCoolant;
         public static void Init()
         {
             Withstand = Modules.Content.CreateAndAddBuff(
@@ -33,6 +35,20 @@ namespace BAMod.Arisu.Content
                 Color.blue,
                 true,
                 true);
+
+            hotCoolant = Modules.Content.CreateAndAddBuff(
+                "Hot Coolant",
+                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/Bleeding").iconSprite,
+                Color.blue,
+                true,
+                true);
+
+            coolantActive = Modules.Content.CreateAndAddBuff(
+                "Cool",
+                null,
+                Color.black,
+                false,
+                false);
 
         }
     }

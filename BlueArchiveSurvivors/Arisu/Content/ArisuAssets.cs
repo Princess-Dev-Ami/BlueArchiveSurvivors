@@ -1,9 +1,12 @@
-﻿using BAMod.GlobalContent.Components;
+﻿using BAMod.Arisu.Components;
+using BAMod.GlobalContent.Components;
 using BAMod.Mashiro.Content;
 using BAMod.Modules;
 using R2API;
 using RoR2;
 using RoR2.Projectile;
+using RoR2BepInExPack.GameAssetPaths;
+using TMPro;
 using UnityEngine;
 
 namespace BAMod.Arisu.Content
@@ -12,7 +15,8 @@ namespace BAMod.Arisu.Content
     {
         
         public static GameObject coreExplosionPrefab;
-
+        public static GameObject hud;
+        public static GameObject weakEffect;
         // networked hit sounds
         public static NetworkSoundEventDef swordHitSoundEvent;
 
@@ -37,6 +41,27 @@ namespace BAMod.Arisu.Content
         #region effects
         private static void CreateEffects()
         {
+            hud = PrefabAPI.CreateEmptyPrefab("ArisuHud");
+            var rectTransform = hud.AddComponent<RectTransform>();
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.sizeDelta = Vector2.zero;
+            rectTransform.anchoredPosition = Vector2.zero;
+
+            weakEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/BearProc"), "Weak");
+
+            if (weakEffect != null)
+            {
+                TextMeshPro tmp = weakEffect.GetComponentInChildren<TextMeshPro>();
+                if (tmp != null)
+                {
+                    tmp.text = "Weak!";
+                    tmp.fontSize = 12f;
+                    tmp.color = Color.red;
+                    tmp.alignment = TextAlignmentOptions.Center;
+
+                }
+            }
 
         }
         #endregion effects

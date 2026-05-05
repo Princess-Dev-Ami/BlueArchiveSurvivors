@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 255921830
+CRC: 3051846480
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ebecffff6925a2cd8ea7a09b07554f08
+    Hash: 0d4d47571f7056bd098be1fefcb938a6
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 0d9848ed5fc688b08ca1fd883bdfa083
+    Hash: d59bcbc969200903a155783c853b4a47
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -34,9 +34,13 @@ ClassTypes:
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 1453722849, guid: 67dfb1fdfb2b407222eda8e23ac8b724, type: 3}
+- Class: 114
   Script: {fileID: 678291247, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -226763392, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -146705984, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -517518216, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 115
@@ -49,26 +53,38 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
 - Class: 319
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
 - AssemblyName: RoR2
   ClassName: ChildLocator/NameTransformPair
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.VertexGradient
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.PersistentCallGroup
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.UnityEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
 - Assets/ArisuBundle/Icons/texHenryIcon.png
 - Assets/ArisuBundle/Animation/clips/DefaultPose.anim
 - Assets/ArisuBundle/Animation/clips/Ascend.anim
 - Assets/ArisuBundle/Animation/maskBandana.mask
 - Assets/ArisuBundle/VFX/Textures/texEmbers.png
+- Assets/ArisuBundle/Icons/ARCoreEjection.png
 - Assets/ArisuBundle/VFX/ImpactHenrySlash.prefab
 - Assets/ArisuBundle/Animation/clips/RestIdleIn.anim
 - Assets/ArisuBundle/VFX/Materials/matSwingEffect.mat
 - Assets/ArisuBundle/Mesh/meshDanteCoat.mesh
 - Assets/ArisuBundle/Animation/clips/IdleAdditive.anim
+- Assets/ArisuBundle/Icons/ARSupernovaFR.png
 - Assets/ArisuBundle/Icons/texDanteAchievement.png
 - Assets/ArisuBundle/Animation/clips/SprintF.anim
 - Assets/ArisuBundle/Animation/clips/WalkL.anim
@@ -96,14 +112,17 @@ Assets:
 - Assets/ArisuBundle/Animation/maskImpact.mask
 - Assets/ArisuBundle/Textures/texHenryJedi.png
 - Assets/ArisuBundle/VFX/Materials/matPunchEffect.mat
+- Assets/ArisuBundle/Icons/ARHyperNova.png
 - Assets/ArisuBundle/Animation/clips/ShootGun.anim
-- Assets/ArisuBundle/Animation/clips/WalkB.anim
 - Assets/ArisuBundle/Animation/clips/IdleIn.anim
+- Assets/ArisuBundle/Animation/clips/WalkB.anim
 - Assets/ArisuBundle/Materials/matHenry.mat
+- Assets/ArisuBundle/ArisuCrosshair.prefab
 - Assets/ArisuBundle/VFX/Materials/matHitSpark.mat
 - Assets/ArisuBundle/Animation/clips/Roll.anim
 - Assets/ArisuBundle/Materials/matHenryJedi.mat
 - Assets/ArisuBundle/Animation/clips/MenuIdle.anim
+- Assets/ArisuBundle/Icons/ARAwakenSuperNova.png
 - Assets/ArisuBundle/Animation/animHenry.controller
 - Assets/ArisuBundle/Textures/texHenryJediEmission.png
 - Assets/ArisuBundle/VFX/HenryFistSwingEffect.prefab
@@ -134,11 +153,13 @@ Assets:
 - Assets/ArisuBundle/VFX/HenryBazookaMuzzleFlash.prefab
 - Assets/ArisuBundle/Mesh/meshNeoCoat.mesh
 - Assets/ArisuBundle/VFX/Materials/matEmbers.mat
+- Assets/ArisuBundle/Icons/ARSupernovaFR3.png
 - Assets/ArisuBundle/Icons/texSpecialIcon.png
 - Assets/ArisuBundle/Animation/maskAimBazooka.mask
 - Assets/ArisuBundle/Icons/texMainSkin.png
 - Assets/ArisuBundle/VFX/Textures/texHenrySwing2.png
 - Assets/ArisuBundle/ArisuDisplay.prefab
+- Assets/ArisuBundle/Icons/AREmergencyCoolingSolution.png
 - Assets/ArisuBundle/VFX/Materials/matFistSwing.mat
 - Assets/ArisuBundle/VFX/Textures/texPunchImpact.png
 - Assets/ArisuBundle/Materials/matDante.mat
@@ -163,12 +184,13 @@ Assets:
 - Assets/ArisuBundle/VFX/HenryDustEffect.prefab
 - Assets/ArisuBundle/Icons/texMasteryAchievement.png
 - Assets/ArisuBundle/Animation/clips/ThrowBomb.anim
-- Assets/ArisuBundle/VFX/Materials/matSlash.mat
+- Assets/ArisuBundle/Icons/ARHyperNova2.png
 - Assets/ArisuBundle/Animation/maskAimYaw.mask
-- Assets/ArisuBundle/VFX/Textures/texFire.tga
+- Assets/ArisuBundle/VFX/Materials/matSlash.mat
 - Assets/ArisuBundle/Materials/matBazookaRocket.mat
-- Assets/ArisuBundle/Mesh/meshRebellion.mesh
+- Assets/ArisuBundle/Icons/ARSupernovaFR2.png
 - Assets/ArisuBundle/VFX/Materials/matAnimeShapes.mat
+- Assets/ArisuBundle/Mesh/meshRebellion.mesh
 - Assets/ArisuBundle/Mesh/meshVergil.mesh
 - Assets/ArisuBundle/Icons/texHenryAchievement.png
 - Assets/ArisuBundle/Icons/texBazookaFireIcon.png
@@ -178,6 +200,7 @@ Assets:
 - Assets/ArisuBundle/VFX/Textures/texSwingEffect.png
 - Assets/ArisuBundle/VFX/Materials/matHenrySwing2.mat
 - Assets/ArisuBundle/Mesh/MeshHenryGun.mesh
+- Assets/ArisuBundle/VFX/Textures/texFire.tga
 - Assets/ArisuBundle/Animation/clips/Idle.anim
 - Assets/ArisuBundle/VFX/Textures/texSmoke.png
 - Assets/ArisuBundle/Mesh/meshHenryNeo.mesh

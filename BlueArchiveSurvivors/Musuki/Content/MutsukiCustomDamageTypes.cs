@@ -8,8 +8,6 @@ namespace BAMod.Mutsuki.Content
 {
     internal class MutsukiCustomDamageTypes
     {
-        public static DamageAPI.ModdedDamageType MutsukiIgnite = DamageAPI.ReserveDamageType();
-        public static DamageAPI.ModdedDamageType MutsukiDoubleIgnite = DamageAPI.ReserveDamageType();
-        public static DamageAPI.ModdedDamageType MutsukiFlameGrenade = DamageAPI.ReserveDamageType();
+        public static DamageAPI.ModdedDamageType MutsukiStackCrit = DamageAPI.ReserveDamageType();
     }
 }
