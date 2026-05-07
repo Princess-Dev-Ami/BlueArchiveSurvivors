@@ -38,7 +38,7 @@ namespace BAMod.Arisu.SkillStates.Primary
                 else if (!IsKeyDownAuthority())
                 {
                     ArisuMain.overheat = false;
-                    ArisuMain.RequestOverride(ArisuCharacterMain.ArisuOverrideRequest.OverheatSwitch);
+                    ArisuMain.RequestOverride(ArisuCharacterMain.ArisuOverrideRequest.RailgunSwitch);
                     outer.SetNextStateToMain();
                     return;
                 }

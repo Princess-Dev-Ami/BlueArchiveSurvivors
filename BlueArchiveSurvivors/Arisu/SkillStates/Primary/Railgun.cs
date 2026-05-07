@@ -45,12 +45,12 @@ namespace BAMod.Arisu.SkillStates.Primary
         public override void OnExit()
         {
             base.OnExit();
-            skillLocator.primary.UnsetSkillOverride(this.gameObject, ArisuSurvivor.Railgun, GenericSkill.SkillOverridePriority.Default);
+            ArisuMain.railgunForm = false;
+            ArisuMain.RequestOverride(ArisuCharacterMain.ArisuOverrideRequest.RailgunSwitch);
             ArisuMain.target = null;
             skillLocator.primary.stock = ArisuMain.Fuel;
             ArisuMain.overHeatTime = 0;
             ArisuMain.beamTime = 0;
-            ArisuMain.railgunForm = false;
         }
         
         private HurtBox SearchForTarget(Ray aimRay)

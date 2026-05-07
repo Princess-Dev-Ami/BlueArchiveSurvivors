@@ -27,6 +27,7 @@ namespace BAMod.Arisu.SkillStates.BaseStates
         {
             None = -1,
             OverheatSwitch,
+            RailgunSwitch,
             StanceSwitch
         }
 
@@ -63,9 +64,11 @@ namespace BAMod.Arisu.SkillStates.BaseStates
 
             if (inputBank.skill1.justReleased && !ultimateGun && (beamTime > 0 || overHeatTime > 0) && tick <= 0)
             {
-                skillLocator.primary.SetSkillOverride(this.gameObject, ArisuSurvivor.Railgun, GenericSkill.SkillOverridePriority.Default);
-                railgunForm = true;
-                tick = 2f;
+                if (RequestOverride(ArisuOverrideRequest.RailgunSwitch))
+                {
+                    railgunForm = true;
+                    tick = 2f;
+                }
             }
             else if (!railgunForm)
             { 
@@ -159,6 +162,19 @@ namespace BAMod.Arisu.SkillStates.BaseStates
                     skillLocator.primary.SetSkillOverride(this.gameObject, overheat ? ArisuSurvivor.BeamOverheat : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
                 }
             }
+            if (overrideRequest == ArisuOverrideRequest.RailgunSwitch)
+            {
+                if (!railgunForm)
+                {
+                    skillLocator.primary.UnsetSkillOverride(this.gameObject, overheat ? ArisuSurvivor.BeamOverheat : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
+                    skillLocator.primary.SetSkillOverride(this.gameObject, ArisuSurvivor.Railgun, GenericSkill.SkillOverridePriority.Default);
+                }
+                else
+                {
+                    skillLocator.primary.UnsetSkillOverride(this.gameObject, ArisuSurvivor.Railgun, GenericSkill.SkillOverridePriority.Default);
+                    skillLocator.primary.SetSkillOverride(this.gameObject, ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
+                }
+            }
             if (overrideRequest == ArisuOverrideRequest.StanceSwitch)
             {
                 if (overheat)
@@ -174,10 +190,11 @@ namespace BAMod.Arisu.SkillStates.BaseStates
             overrideRequest = ArisuOverrideRequest.None;
         }
 
-        public void RequestOverride(ArisuOverrideRequest request)
+        public bool RequestOverride(ArisuOverrideRequest request)
         {
-            if (overrideRequest > request) return;
+            if (overrideRequest > request) return false;
             overrideRequest = request;
+            return true;
         }
         
         public float ReturnCalcDamage()

@@ -437,7 +437,7 @@ namespace BAMod.Arisu
                 skillNameToken = Arisu_PREFIX + "SPECIAL_ULTIMATE_PRIMARY_NAME",
                 skillDescriptionToken = Arisu_PREFIX + "SPECIAL_ULTIMATE_PRIMARY_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("ARHyperNova"),
 
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(ArisuUltBeamAttack)),
@@ -469,7 +469,7 @@ namespace BAMod.Arisu
                 skillNameToken = Arisu_PREFIX + "ULT_PRIMARY_NAME",
                 skillDescriptionToken = Arisu_PREFIX + "ULT_PRIMARY_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("ARHyperNova2"),
 
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(ArisuUltBeamAttackOverheat)),
