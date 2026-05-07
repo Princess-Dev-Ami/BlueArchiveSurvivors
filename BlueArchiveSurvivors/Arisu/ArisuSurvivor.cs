@@ -266,7 +266,7 @@ namespace BAMod.Arisu
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 beginSkillCooldownOnSkillEnd = false,
 
                 isCombatSkill = true,
@@ -371,7 +371,7 @@ namespace BAMod.Arisu
                 activationStateMachineName = "Gun",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
-                baseRechargeInterval = 30,
+                baseRechargeInterval = 0,
 
                 rechargeStock = 1,
                 requiredStock = 1,

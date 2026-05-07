@@ -30,7 +30,7 @@ namespace BAMod.Arisu.SkillStates.Primary
             {
                 ArisuMain.overHeatTime += 0.1f;
                 damageTick += Time.fixedDeltaTime;
-                if (damageTick > 0.2f)
+                if (damageTick >= 0.2f)
                 {
                     characterBody.AddBuff(ArisuBuffs.ArisuOverheatStack);
                     damageTick -= 0.2f;
@@ -38,6 +38,7 @@ namespace BAMod.Arisu.SkillStates.Primary
                 else if (!IsKeyDownAuthority())
                 {
                     ArisuMain.overheat = false;
+                    ArisuMain.railgunForm = true;
                     ArisuMain.RequestOverride(ArisuCharacterMain.ArisuOverrideRequest.RailgunSwitch);
                     outer.SetNextStateToMain();
                     return;

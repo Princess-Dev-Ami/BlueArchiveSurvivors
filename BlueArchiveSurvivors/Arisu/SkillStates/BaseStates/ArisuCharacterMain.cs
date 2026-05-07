@@ -31,7 +31,8 @@ namespace BAMod.Arisu.SkillStates.BaseStates
             StanceSwitch
         }
 
-        private ArisuOverrideRequest overrideRequest;
+        private ArisuOverrideRequest overrideRequest = ArisuOverrideRequest.None;
+        private bool processedRequest;
 
         public bool overHeating;
         public float beamTime;
@@ -64,9 +65,9 @@ namespace BAMod.Arisu.SkillStates.BaseStates
 
             if (inputBank.skill1.justReleased && !ultimateGun && (beamTime > 0 || overHeatTime > 0) && tick <= 0)
             {
+                railgunForm = true;
                 if (RequestOverride(ArisuOverrideRequest.RailgunSwitch))
-                {
-                    railgunForm = true;
+                { 
                     tick = 2f;
                 }
             }
@@ -149,30 +150,42 @@ namespace BAMod.Arisu.SkillStates.BaseStates
         private void UpdateBeam()
         {
             if (overrideRequest == ArisuOverrideRequest.None) return;
+            if (processedRequest) return;
             if (overrideRequest == ArisuOverrideRequest.OverheatSwitch)
             {
                 if (ultimateGun)
                 {
                     skillLocator.primary.UnsetSkillOverride(this.gameObject, !overheat ? ArisuSurvivor.UltBeamOverheat : ArisuSurvivor.UltBeam, GenericSkill.SkillOverridePriority.Default);
                     skillLocator.primary.SetSkillOverride(this.gameObject, overheat ? ArisuSurvivor.UltBeamOverheat : ArisuSurvivor.UltBeam, GenericSkill.SkillOverridePriority.Default);
+                    processedRequest = true;
                 }
                 else
                 {
                     skillLocator.primary.UnsetSkillOverride(this.gameObject, !overheat ? ArisuSurvivor.BeamOverheat : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
                     skillLocator.primary.SetSkillOverride(this.gameObject, overheat ? ArisuSurvivor.BeamOverheat : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
+
+                    processedRequest = true;
+                    overrideRequest = ArisuOverrideRequest.None;
+                    return;
                 }
             }
             if (overrideRequest == ArisuOverrideRequest.RailgunSwitch)
             {
-                if (!railgunForm)
+                if (railgunForm)
                 {
                     skillLocator.primary.UnsetSkillOverride(this.gameObject, overheat ? ArisuSurvivor.BeamOverheat : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
                     skillLocator.primary.SetSkillOverride(this.gameObject, ArisuSurvivor.Railgun, GenericSkill.SkillOverridePriority.Default);
+                    processedRequest = true;
                 }
                 else
                 {
                     skillLocator.primary.UnsetSkillOverride(this.gameObject, ArisuSurvivor.Railgun, GenericSkill.SkillOverridePriority.Default);
                     skillLocator.primary.SetSkillOverride(this.gameObject, ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
+                    skillLocator.primary.stock = Fuel;
+                    
+                    processedRequest = true;
+                    overrideRequest = ArisuOverrideRequest.None;
+                    return;
                 }
             }
             if (overrideRequest == ArisuOverrideRequest.StanceSwitch)
@@ -186,14 +199,18 @@ namespace BAMod.Arisu.SkillStates.BaseStates
                     skillLocator.primary.UnsetSkillOverride(this.gameObject, !ultimateGun ? ArisuSurvivor.UltBeam : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
                 }
                 skillLocator.primary.SetSkillOverride(this.gameObject, ultimateGun ? ArisuSurvivor.UltBeam : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);
+
+                processedRequest = true;
+                overrideRequest = ArisuOverrideRequest.None;
+                return;
             }
-            overrideRequest = ArisuOverrideRequest.None;
         }
 
         public bool RequestOverride(ArisuOverrideRequest request)
         {
             if (overrideRequest > request) return false;
             overrideRequest = request;
+            processedRequest = false;
             return true;
         }
         
