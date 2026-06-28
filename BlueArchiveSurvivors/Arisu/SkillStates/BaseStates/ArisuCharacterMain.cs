@@ -171,6 +171,12 @@ namespace BAMod.Arisu.SkillStates.BaseStates
             }
             if (overrideRequest == ArisuOverrideRequest.RailgunSwitch)
             {
+                if (ultimateGun)
+                {
+                    processedRequest = true;
+                    return;
+                }
+
                 if (railgunForm)
                 {
                     skillLocator.primary.UnsetSkillOverride(this.gameObject, overheat ? ArisuSurvivor.BeamOverheat : ArisuSurvivor.Beam, GenericSkill.SkillOverridePriority.Default);

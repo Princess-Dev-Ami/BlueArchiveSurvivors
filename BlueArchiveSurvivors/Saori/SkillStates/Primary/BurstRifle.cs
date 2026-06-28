@@ -37,7 +37,7 @@ namespace BAMod.Saori.SkillStates.Primary
             if (isAuthority)
             {
                 tick += Time.deltaTime;
-                if (tick > 0.11f && IsKeyDownAuthority() && FiredAmount <= 6 && !HERoundMag)
+                if (tick > fireDelay && FiredAmount <= 6 * (1 / attackSpeedStat) && !HERoundMag)
                 {
                     var aimRay = GetAimRay();
                     var pelletVectors = ScatterVectors(aimRay.direction, 1, 3f, 1f);
@@ -68,11 +68,11 @@ namespace BAMod.Saori.SkillStates.Primary
                         };
                         bullet.AddModdedDamageType(SaoriCustomDamageTypes.SaoriBurstBasic);
                         bullet.Fire();
-                        tick -= 0.11f;
+                        tick -= fireDelay;
                         FiredAmount += 1;
                     }
                 }
-                else if (tick > 0.11f && IsKeyDownAuthority() && FiredAmount <= 4 && HERoundMag)
+                else if (tick > fireDelay && FiredAmount <= 4 * (1 / attackSpeedStat) && HERoundMag)
                 {
                     var aimRay = GetAimRay();
                     var pelletVectors = ScatterVectors(aimRay.direction, 1, 3f, 1f);
@@ -103,11 +103,11 @@ namespace BAMod.Saori.SkillStates.Primary
                         };
                         bullet.AddModdedDamageType(SaoriCustomDamageTypes.SaoriExplodeOnHit);
                         bullet.Fire();
-                        tick -= 0.11f;
+                        tick -= fireDelay;
                         FiredAmount += 1;
                     }
                 }
-                if (fixedAge > duration || !IsKeyDownAuthority())
+                if (fixedAge > duration)
                 {
                     outer.SetNextStateToMain();
                     return;

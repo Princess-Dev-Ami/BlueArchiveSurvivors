@@ -34,11 +34,13 @@ namespace BAMod.Saori.SkillStates.Special
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            tick += Time.fixedDeltaTime;
-            var aimRay = GetAimRay();
+
             if (isAuthority)
             {
-                if (tick > fireDelay && Bullet < 10 * (1 / attackSpeedStat))
+                tick += Time.fixedDeltaTime;
+                var aimRay = GetAimRay();
+
+                if (tick > fireDelay && Bullet <= 10 * (1 / attackSpeedStat))
                 {
                     BulletAttack bullet = new BulletAttack
                     {
@@ -65,11 +67,12 @@ namespace BAMod.Saori.SkillStates.Special
                     };
                     bullet.AddModdedDamageType(SaoriCustomDamageTypes.SaoriBurstBasic);
                     bullet.Fire();
+                    tick -= fireDelay;
+                    Bullet++;
                 }
 
                 if (fixedAge > duration)
                 {
-
                     outer.SetNextStateToMain();
                     return;
                 }
